@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./components/ProtectedRoute";
-
+import { Toaster } from "react-hot-toast";
 import Landing from "./pages/landing";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
@@ -15,6 +15,8 @@ function App() {
 
   return (
     <BrowserRouter>
+
+      <Toaster position="top-right" />
       <Routes>
         <Route path="/" element={auth ? <Navigate to="/home" replace /> : <Landing />} />
         

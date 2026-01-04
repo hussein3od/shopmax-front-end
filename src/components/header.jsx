@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Container from "./container";
 import Logo from "../assets/logo.png";
 import { useState } from "react";
@@ -6,6 +6,13 @@ import { useState } from "react";
 function Header() {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("auth");
+    setOpen(false);
+    navigate("/login");
+  };
   return (
     <>
       <style>{`
@@ -36,6 +43,7 @@ function Header() {
             <Link to="/home" className={`nav-link text-base text-gray-700 py-2 px-3 rounded-full transition ${location.pathname === '/home' ? 'active' : ''}`}>Home</Link>
             <Link to="/aboutUs" className={`nav-link text-base text-gray-700 py-2 px-3 rounded-full transition ${location.pathname === '/aboutUs' ? 'active' : ''}`}>About Us</Link>
             <Link to="/cart" className={`nav-link text-base text-gray-700 py-2 px-3 rounded-full transition ${location.pathname === '/cart' ? 'active' : ''}`}>Cart</Link>
+            <button onClick={handleLogout} className="ml-2 px-3 py-2 bg-red-500 text-white rounded-full text-sm hover:bg-red-600">Logout</button>
           </nav>
 
           <div className="md:hidden">
@@ -55,11 +63,12 @@ function Header() {
           </div>
         </header>
 
-        <div className={`${open ? 'block' : 'hidden'} md:hidden mb-4`}>
+            <div className={`${open ? 'block' : 'hidden'} md:hidden mb-4`}>
           <div className="flex flex-col gap-2 px-2 pb-4">
             <Link to="/home" onClick={() => setOpen(false)} className="block text-gray-700 bg-white border border-gray-100 py-2 px-3 rounded-lg">Home</Link>
             <Link to="/aboutUs" onClick={() => setOpen(false)} className="block text-gray-700 bg-white border border-gray-100 py-2 px-3 rounded-lg">About Us</Link>
             <Link to="/cart" onClick={() => setOpen(false)} className="block text-gray-700 bg-white border border-gray-100 py-2 px-3 rounded-lg">Cart</Link>
+            <button onClick={handleLogout} className="w-full text-left text-white bg-red-500 py-2 px-3 rounded-lg cursor-pointer">Logout</button>
           </div>
         </div>
       </Container>

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 import { LuSearch } from "react-icons/lu";
 import Header from "../components/header";
 import Container from "../components/container";
@@ -137,8 +138,11 @@ function Home() {
                     </div>
                   </Link>
                   <button
-                    onClick={() => addToCart(product)}
-                    className="mt-3 w-full bg-green-500 text-white cursor-pointer py-2 rounded-lg"
+                    onClick={() => {
+                      addToCart(product);
+                      toast.success(`${product.name} added to your cart! 🛒`)}
+                    }
+                    className="mt-3 w-full bg-green-500 text-white cursor-pointer py-2 rounded-lg active:bg-green-600"
                   >
                     Add to cart
                   </button>
